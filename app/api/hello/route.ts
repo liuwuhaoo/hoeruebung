@@ -11,7 +11,6 @@ function streamToBuffer(stream:any) : Promise<Buffer> {
     stream.on('error', reject);
     stream.on('end', () => resolve(Buffer.concat(chunks)));
   });
-
 }
 
 async function getTTS(num: number): Promise<Buffer> {

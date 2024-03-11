@@ -3,8 +3,7 @@ import Number from "./Number";
 
 export default function Home() {
   return (
-    <main className="">
-      Hello
+    <main className="main">
       <Number />
     </main>
   );
