@@ -15,22 +15,19 @@ function streamToBuffer(stream:any) : Promise<Buffer> {
 
 async function getTTS(num: number): Promise<Buffer> {
   const tts = new MsEdgeTTS();
-  await tts.setMetadata("de-DE-KatjaNeural", MsEdgeTTS.OUTPUT_FORMATS.WEBM_24KHZ_16BIT_MONO_OPUS);
+  await tts.setMetadata("de-DE-KatjaNeural", MsEdgeTTS.OUTPUT_FORMAT.AUDIO_24KHZ_48KBITRATE_MONO_MP3);
   const readable = tts.toStream(num.toString());
-
   const buffer = await streamToBuffer(readable);
   return buffer;
 }
 
 export async function GET(request: Request) {
-  // console.log(readable)
-  // const number = request.query.get('number');
   const num = new URL(request.url).searchParams.get('number');
   const buffer = await getTTS(Number(num));
   
   return new Response(buffer, {
     headers: {
-      'Content-Type': 'audio/webm', // Adjust the MIME type according to your audio format
+      'Content-Type': 'audio/mp3', // Adjust the MIME type according to your audio format
       'Content-Length': buffer.length.toString(),
     },
   });
